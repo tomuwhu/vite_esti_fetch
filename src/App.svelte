@@ -35,9 +35,7 @@
       <tr>
         {#each o as v}
           <td on:click={() => f(v)}>
-            {#if v == "P"}±
-            {:else}{v}
-            {/if}
+            {v == "P" ? '±' : v}
           </td>
         {/each}
       </tr>
