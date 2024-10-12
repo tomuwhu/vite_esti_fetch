@@ -17,7 +17,7 @@
     <tr>
       <th colspan=4><input type="text" bind:value={szam}></th>
     </tr>
-    {@html ["CPS/","789*","456-","123+","00,="].map(o => `
+    {@html ["CP%/","789*","456-","123+","00,="].map(o => `
       <tr>
        ${o.split('').map(v => `<td>${v}</td>`).join("")}
       </tr>`
