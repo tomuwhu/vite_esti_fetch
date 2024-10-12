@@ -5,7 +5,7 @@
   setInterval(() => time = new Date(), 1000)
   const f = v => {
     // @ts-ignore
-    if (v == "P") szam = -szam
+    if (v == "P") szam = szam ? -szam : szam
     else if (v == "C") szam = ""
     else if (v == "=") szam = eval(szam)
     else szam += v
