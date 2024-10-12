@@ -1,6 +1,6 @@
 <script>
   var time = new Date()
-  var szam = 0
+  var szam = ""
   setInterval(() => 
     time = new Date(),
     1000
@@ -13,7 +13,18 @@
   </h1>
   {time.toLocaleDateString()}
   <hr>
-  <input type="text" bind:value={szam}>
+  <table>
+    <tr>
+      <th colspan=4><input type="text" bind:value={szam}></th>
+    </tr>
+    {@html ["CPS/","789*","456-","123+","00,="].map(o => `
+      <tr>
+       ${o.split('').map(v => `<td>${v}</td>`).join("")}
+      </tr>`
+    ).join('')}
+  </table>
+  
+  
   <br>
   2-es számrendszer:<br>
   <div class="out">{BigInt(szam)
@@ -37,5 +48,27 @@
     font-size: 20px;
     overflow-wrap: break-word;
     max-width: 500px;
+  }
+  table {
+    border-spacing: 10px;
+  }
+  :global(td) {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border: 1px solid black;
+    font-size: 20px;
+    font-weight: bold;
+    background-color: white;
+    color: black;
+    user-select: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  :global(td:hover) {
+    background-color: lightgray;
+  }
+  :global(td:active) {
+    background-color: gray;
   }
 </style>
