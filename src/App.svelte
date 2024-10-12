@@ -1,15 +1,13 @@
 <script>
+// @ts-nocheck
   var time = new Date()
   $: [or, p, mp] = time.toLocaleTimeString().split(":").map(Number)
   var [oratipus, szam] = ["analog", ""]
   setInterval(() => time = new Date(), 1000)
-  const f = v => {
-    // @ts-ignore
-    if (v == "P") szam = szam ? -szam : szam
-    else if (v == "C") szam = ""
-    else if (v == "=") szam = eval(szam)
-    else szam += v
-  }
+  const f = v => 
+    v == "P" ? szam = szam ? -szam : szam :
+    v == "C" ? szam = "" :
+    v == "=" ? szam = eval(szam) : szam += v
   const fx = (t, r, o) =>
     250 + r * Math.cos(t * Math.PI / (o / 2) - Math.PI/2)
   const fy = (t, r, o) =>
