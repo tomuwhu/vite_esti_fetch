@@ -98,14 +98,16 @@
     color: black;
     user-select: none;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.3s;
+    transition: color 0.3s;
     border-radius: 6px;
     box-shadow: 1px 1px 1px inset black;
   }
   :global(td:hover) {
-    background-color: lightgray;
+    background-color: rgb(171, 171, 171);
   }
   :global(td:active) {
-    background-color: gray;
+    background-color: rgb(71, 71, 71);
+    color: white;
   }
 </style>
