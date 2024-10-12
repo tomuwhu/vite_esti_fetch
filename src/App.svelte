@@ -1,6 +1,8 @@
 <script>
   var time = new Date()
-  var x = 0, y = 0
+  $: mp = time.toLocaleTimeString().split(":")[2]
+  $: p = time.toLocaleTimeString().split(":")[1]
+  $: or = time.toLocaleTimeString().split(":")[0]
   var oratipus = "analog"
   var szam = ""
   setInterval(() => 
@@ -24,6 +26,7 @@
 </script>
 
 <main>
+  {time.toLocaleTimeString().split(":")[2]}
   <button on:click={() => oratipus = oratipus == "analog" ? "digital" : "analog"}>
     {oratipus}
   </button>
@@ -49,14 +52,23 @@
     {/each}
   </table>
   {:else}
-  <input type="range" bind:value={x}>
-  {x}
+  {or}
   <svg width="500" height="500">
    <line x1=250 y1=250 x2={
-    250 + 220 * Math.cos(x/10)
+    250 + 220 * Math.cos(mp * Math.PI / 30- Math.PI/2)
   } y2={
-    250 + 220 * Math.sin(x/10)
-  } stroke="white" stroke-width="10"/>
+    250 + 220 * Math.sin(mp * Math.PI / 30- Math.PI/2)
+  } stroke="white" stroke-width="3"/>
+  <line x1=250 y1=250 x2={
+    250 + 200 * Math.cos(p * Math.PI / 30- Math.PI/2)
+  } y2={
+    250 + 200 * Math.sin(p * Math.PI / 30- Math.PI/2)
+  } stroke="yellow" stroke-width="6"/>
+    <line x1=250 y1=250 x2={
+      250 + 150 * Math.cos(or * Math.PI / 6 - Math.PI/2)
+    } y2={
+      250 + 150 * Math.sin(or * Math.PI / 6 - Math.PI/2)
+    } stroke="magenta" stroke-width="10"/>
   </svg>
   {/if}
 </main>
