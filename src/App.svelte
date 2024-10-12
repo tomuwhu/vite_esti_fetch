@@ -6,6 +6,24 @@
     time = new Date(),
     1000
   )
+  const f = v => {
+    if (v == "P") {
+      szam = -szam
+    }
+    else if (v == "(") {
+      zo = !zo
+      szam += zo ? "(" : ")"
+    }
+    else if (v == "C") {
+      szam = ""
+    }
+    else if (v == "=") {
+      szam = eval(szam)
+    }
+    else {
+      szam += v
+    }
+  }
 </script>
 
 <main>
@@ -20,36 +38,17 @@
     </tr>
     {#each ["CP%/","789*","456-","123+","(0,="] as o}
       <tr>
-        {#each o.split('') as v}
-          <td>{
-            v == 'P' ? '±' : 
-            v == "(" && zo ? ')' : v
-          }</td>
+        {#each o as v}
+          <td on:click={() => f(v)}>
+            {#if v == "P"}±
+            {:else if v == "(" && zo})
+            {:else}{v}
+            {/if}
+          </td>
         {/each}
       </tr>
     {/each}
-    {@html ["CP%/","789*","456-","123+","(0,="].map(o => `
-      <tr>
-       ${o.split('').map(v => `<td>${
-       v == 'P' ? '±' : 
-       v == "(" && zo ? ')' : v
-       }</td>`).join("")}
-      </tr>`
-    ).join('')}
   </table>
-  
-  
-  <br>
-  2-es számrendszer:<br>
-  <div class="out">{BigInt(szam)
-    .toString(2)}</div> 
-  <br>
-  16-os számrendszer:<br>
-  <div class="out">
-    {BigInt(szam)
-      .toString(16)
-      .toLocaleUpperCase()}
-  </div>
 </main>
 
 <style>
