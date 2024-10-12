@@ -1,74 +1,142 @@
 <script>
-// @ts-nocheck
-  var time = new Date()
-  $: [or, p, mp] = time.toLocaleTimeString().split(":").map(Number)
-  var [oratipus, szam] = ["analog", ""]
-  setInterval(() => time = new Date(), 1000)
-  const f = v => 
-    v == "P" ? szam = szam ? -szam : szam :
-    v == "C" ? szam = "" :
-    v == "=" ? szam = eval(szam) : szam += v
+  // @ts-nocheck
+  var time = new Date();
+  $: [or, p, mp] = time.toLocaleTimeString().split(":").map(Number);
+  var [oratipus, szam] = ["analog", ""];
+  setInterval(() => (time = new Date()), 1000);
+  const f = (v) =>
+    v == "P"
+      ? (szam = szam ? -szam : szam)
+      : v == "C"
+        ? (szam = "")
+        : v == "="
+          ? (szam = eval(szam))
+          : (szam += v);
   const fx = (t, r, o) =>
-    250 + r * Math.cos(t * Math.PI / (o / 2) - Math.PI/2)
+    250 + r * Math.cos((t * Math.PI) / (o / 2) - Math.PI / 2);
   const fy = (t, r, o) =>
-    250 + r * Math.sin(t * Math.PI / (o / 2) - Math.PI/2) 
+    250 + r * Math.sin((t * Math.PI) / (o / 2) - Math.PI / 2);
 </script>
 
 <main>
-  <button on:click={() => oratipus = oratipus == "analog" ? "digital" : "analog"}>
+  <button
+    on:click={() => (oratipus = oratipus == "analog" ? "digital" : "analog")}
+  >
     {oratipus == "analog" ? "Váltás digitálisra" : "Váltás analógra"}
   </button>
-  <br>
+  <br />
   {#if oratipus == "digital"}
-  <h1>{time.toLocaleTimeString()}</h1>{time.toLocaleDateString()}
-  <hr>
-  <table>
-    <tr>
-      <th colspan=4><input type="text" bind:value={szam}></th>
-    </tr>
-    {#each ["CP%/","789*","456-","123+","0.=","()"] as o}
+    <h1>{time.toLocaleTimeString()}</h1>
+    {time.toLocaleDateString()}
+    <hr />
+    <table>
       <tr>
-        {#each o as v}
-          <td on:click={() => f(v)}>
-            {v == "P" ? '±' : v}
-          </td>
-        {/each}
+        <th colspan="6"><input type="text" bind:value={szam} /></th>
       </tr>
-    {/each}
-  </table>
+      {#each ["C%/*()", "789+-", "456P", "123", "0.", "="] as o}
+        <tr>
+          {#each o as v}
+            <td on:click={() => f(v)}>
+              {v == "P" ? "±" : v}
+            </td>
+          {/each}
+        </tr>
+      {/each}
+    </table>
   {:else}
-  <br>
-  <svg width="500" height="500">
-    <circle cx=250 cy=250 r=240 fill="#ffffff" class="osz"
-            stroke="#ddd" stroke-width="5"/>
-    <circle cx=250 cy=250 r=230 fill="#333333"
-            stroke="#eeeeee" stroke-width="4"/>
-    {#each Array.from({length: 60}) as _, i}
-      {#if i % 5}
-        <line x2={fx(i, 214, 60)} y2={fy(i, 214, 60)}
-              x1={fx(i, 220, 60)} y1={fy(i, 220, 60)}
-              stroke="white" stroke-width="2"/>
-      {:else}
-        <circle cx={fx(i, 180, 60)} cy={fy(i, 180, 60)}
-                r=30 fill="#555555" stroke="#eeeeee" stroke-width="2"/>
-        <circle cx={fx(i, 218, 60)} cy={fy(i, 218, 60)}
-                r=6 fill="#999999" stroke="#eeeeee" stroke-width="2"/>
-      {/if}
-    {/each}
-    {#each Array.from({length: 12}) as _, i}
-      <text x={fx(i, 180, 12)} y={fy(i, 180, 12)-1}
-            fill="#eeeeee" text-anchor="middle" dominant-baseline="central"
-            font-size="40">{i == 0 ? 12 : i}</text>
-    {/each}
-    <line x2={fx(p + mp / 60, 190, 60)} y2={fy(p + mp / 60, 190, 60)} class="osz"
-          x1=250 y1=250 stroke="#eeeeee" stroke-width="6"/>
-    <line x2={fx(or * 5 + p / 12, 146, 60)} y2={fy(or * 5 + p / 12, 146, 60)}
-          x1=250 y1=250 stroke="#999999" stroke-width="10"/>
-    <circle cx=250 cy=250 r=10 fill="white" stroke="#999999" stroke-width="2"/>
-    <line x2={fx(mp, 210, 60)} y2={fy(mp, 210, 60)}
-          x1={fx(mp, -20, 60)} y1={fy(mp, -20, 60)}
-          stroke="white" stroke-width="4" class="osz"/>
-  </svg>
+    <br />
+    <svg width="500" height="500">
+      <circle
+        cx="250"
+        cy="250"
+        r="240"
+        fill="#ffffff"
+        class="osz"
+        stroke="#ddd"
+        stroke-width="5"
+      />
+      <circle
+        cx="250"
+        cy="250"
+        r="230"
+        fill="#333333"
+        stroke="#eeeeee"
+        stroke-width="4"
+      />
+      {#each Array.from({ length: 60 }) as _, i}
+        {#if i % 5}
+          <line
+            x2={fx(i, 214, 60)}
+            y2={fy(i, 214, 60)}
+            x1={fx(i, 220, 60)}
+            y1={fy(i, 220, 60)}
+            stroke="white"
+            stroke-width="2"
+          />
+        {:else}
+          <circle
+            cx={fx(i, 180, 60)}
+            cy={fy(i, 180, 60)}
+            r="30"
+            fill="#555555"
+            stroke="#eeeeee"
+            stroke-width="2"
+          />
+          <circle
+            cx={fx(i, 218, 60)}
+            cy={fy(i, 218, 60)}
+            r="6"
+            fill="#999999"
+            stroke="#eeeeee"
+            stroke-width="2"
+          />
+        {/if}
+      {/each}
+      {#each Array.from({ length: 12 }) as _, i}
+        <text
+          x={fx(i, 180, 12)}
+          y={fy(i, 180, 12) - 1}
+          fill="#eeeeee"
+          text-anchor="middle"
+          dominant-baseline="central"
+          font-size="40">{i == 0 ? 12 : i}</text
+        >
+      {/each}
+      <line
+        x2={fx(p + mp / 60, 190, 60)}
+        y2={fy(p + mp / 60, 190, 60)}
+        class="osz"
+        x1="250"
+        y1="250"
+        stroke="#eeeeee"
+        stroke-width="6"
+      />
+      <line
+        x2={fx(or * 5 + p / 12, 146, 60)}
+        y2={fy(or * 5 + p / 12, 146, 60)}
+        x1="250"
+        y1="250"
+        stroke="#999999"
+        stroke-width="10"
+      />
+      <circle
+        cx="250"
+        cy="250"
+        r="10"
+        fill="white"
+        stroke="#999999"
+        stroke-width="2"
+      />
+      <line
+        x2={fx(mp, 210, 60)}
+        y2={fy(mp, 210, 60)}
+        x1={fx(mp, -20, 60)}
+        y1={fy(mp, -20, 60)}
+        stroke="white"
+        stroke-width="4"
+        class="osz"
+      />
+    </svg>
   {/if}
 </main>
 
@@ -78,8 +146,10 @@
     filter: opacity(70%);
   }
   input {
+    width: 96%;
     text-align: right;
-    font-size: 20px;
+    font-size: 25px;
+    padding: 5px;
   }
   table {
     border-spacing: 10px;
