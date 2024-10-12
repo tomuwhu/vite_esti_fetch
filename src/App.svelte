@@ -18,6 +18,16 @@
     <tr>
       <th colspan=4><input type="text" bind:value={szam}></th>
     </tr>
+    {#each ["CP%/","789*","456-","123+","(0,="] as o}
+      <tr>
+        {#each o.split('') as v}
+          <td>{
+            v == 'P' ? '±' : 
+            v == "(" && zo ? ')' : v
+          }</td>
+        {/each}
+      </tr>
+    {/each}
     {@html ["CP%/","789*","456-","123+","(0,="].map(o => `
       <tr>
        ${o.split('').map(v => `<td>${
