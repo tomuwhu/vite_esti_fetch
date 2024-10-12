@@ -1,5 +1,7 @@
 <script>
   var time = new Date()
+  var x = 0, y = 0
+  var oratipus = "analog"
   var szam = ""
   setInterval(() => 
     time = new Date(),
@@ -22,6 +24,11 @@
 </script>
 
 <main>
+  <button on:click={() => oratipus = oratipus == "analog" ? "digital" : "analog"}>
+    {oratipus}
+  </button>
+  <br>
+  {#if oratipus == "digital"}
   <h1>
     {time.toLocaleTimeString()}
   </h1>
@@ -41,6 +48,17 @@
       </tr>
     {/each}
   </table>
+  {:else}
+  <input type="range" bind:value={x}>
+  {x}
+  <svg width="500" height="500">
+   <line x1=250 y1=250 x2={
+    250 + 220 * Math.cos(x/10)
+  } y2={
+    250 + 220 * Math.sin(x/10)
+  } stroke="white" stroke-width="10"/>
+  </svg>
+  {/if}
 </main>
 
 <style>
