@@ -52,6 +52,7 @@
   </table>
   {:else}
   <svg width="500" height="500">
+    <circle cx=250 cy=250 r=250 fill="blue"/>
    <line x1=250 y1=250 x2={
     250 + 220 * Math.cos(mp * Math.PI / 30- Math.PI/2)
   } y2={
@@ -67,6 +68,15 @@
     } y2={
       250 + 150 * Math.sin(or * Math.PI / 6 - Math.PI/2)
     } stroke="magenta" stroke-width="10"/>
+    {#each Array.from({length: 12}) as _, i}
+      <text 
+      x={250 + 230 * Math.cos(i * Math.PI / 6 - Math.PI/2)}
+      y={250 + 230 * Math.sin(i * Math.PI / 6 - Math.PI/2)} 
+      fill="white" text-anchor="middle" dominant-baseline="central" font-size="20">{
+      i == 0 ? 12 : i
+      }</text>
+    {/each}
+
   </svg>
   {/if}
 </main>
