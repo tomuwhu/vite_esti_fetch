@@ -1,10 +1,7 @@
 <script>
   var time = new Date()
-  $: mp = time.toLocaleTimeString().split(":")[2]
-  $: p = time.toLocaleTimeString().split(":")[1]
-  $: or = time.toLocaleTimeString().split(":")[0]
-  var oratipus = "analog"
-  var szam = ""
+  $: [or, p, mp] = time.toLocaleTimeString().split(":")
+  var [oratipus, szam] = ["analog", ""]
   setInterval(() => time = new Date(), 1000)
   const f = v => {
     if (v == "P") szam = -szam
@@ -24,10 +21,7 @@
   </button>
   <br>
   {#if oratipus == "digital"}
-  <h1>
-    {time.toLocaleTimeString()}
-  </h1>
-  {time.toLocaleDateString()}
+  <h1>{time.toLocaleTimeString()}</h1>{time.toLocaleDateString()}
   <hr>
   <table>
     <tr>
@@ -64,7 +58,7 @@
             font-size="20">{i == 0 ? 12 : i}</text>
     {/each}
     <line x2={fx(p, 190, 60)} y2={fy(p, 190, 60)}
-           x1=250 y1=250 stroke="yellow" stroke-width="6"/>
+          x1=250 y1=250 stroke="yellow" stroke-width="6"/>
     <line x2={fx(or, 140, 12)} y2={fy(or, 140, 12)}
           x1=250 y1=250 stroke="magenta" stroke-width="10"/>
     <circle cx=250 cy=250 r=10 fill="white" stroke="#35f2e0" stroke-width="1"/>
