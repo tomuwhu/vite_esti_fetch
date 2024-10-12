@@ -13,9 +13,19 @@
   </h1>
   {time.toLocaleDateString()}
   <hr>
-  <input type="text">
+  <input type="text" bind:value={szam}>
+  <br>
+  2-es számrendszer: {Number(szam)
+    .toString(2)} 
+  <br>
+  16-os számrendszer: {Number(szam)
+    .toString(16)
+    .toLocaleUpperCase()}
 </main>
 
 <style>
-
+  input {
+    text-align: right;
+    font-size: 20px;
+  }
 </style>
