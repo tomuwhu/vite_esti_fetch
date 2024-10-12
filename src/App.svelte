@@ -1,6 +1,7 @@
 <script>
   var time = new Date()
   var szam = ""
+  var zo = false
   setInterval(() => 
     time = new Date(),
     1000
@@ -17,9 +18,12 @@
     <tr>
       <th colspan=4><input type="text" bind:value={szam}></th>
     </tr>
-    {@html ["CP%/","789*","456-","123+","00,="].map(o => `
+    {@html ["CP%/","789*","456-","123+","(0,="].map(o => `
       <tr>
-       ${o.split('').map(v => `<td>${v}</td>`).join("")}
+       ${o.split('').map(v => `<td>${
+       v == 'P' ? '±' : 
+       v == "(" && zo ? ')' : v
+       }</td>`).join("")}
       </tr>`
     ).join('')}
   </table>
@@ -64,6 +68,8 @@
     user-select: none;
     cursor: pointer;
     transition: background-color 0.2s;
+    border-radius: 6px;
+    box-shadow: 1px 1px 1px inset black;
   }
   :global(td:hover) {
     background-color: lightgray;
