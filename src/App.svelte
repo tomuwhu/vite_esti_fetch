@@ -1,9 +1,10 @@
 <script>
   var time = new Date()
-  $: [or, p, mp] = time.toLocaleTimeString().split(":")
+  $: [or, p, mp] = time.toLocaleTimeString().split(":").map(Number)
   var [oratipus, szam] = ["analog", ""]
   setInterval(() => time = new Date(), 1000)
   const f = v => {
+    // @ts-ignore
     if (v == "P") szam = -szam
     else if (v == "C") szam = ""
     else if (v == "=") szam = eval(szam)
@@ -61,7 +62,7 @@
             fill="#eeeeee" text-anchor="middle" dominant-baseline="central"
             font-size="40">{i == 0 ? 12 : i}</text>
     {/each}
-    <line x2={fx(1 * p + mp / 60, 190, 60)} y2={fy(1 * p + mp / 60, 190, 60)} class="osz"
+    <line x2={fx(p + mp / 60, 190, 60)} y2={fy(p + mp / 60, 190, 60)} class="osz"
           x1=250 y1=250 stroke="#eeeeee" stroke-width="6"/>
     <line x2={fx(or * 5 + p / 12, 146, 60)} y2={fy(or * 5 + p / 12, 146, 60)}
           x1=250 y1=250 stroke="#999999" stroke-width="10"/>
