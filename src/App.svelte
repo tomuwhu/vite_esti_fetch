@@ -15,17 +15,27 @@
   <hr>
   <input type="text" bind:value={szam}>
   <br>
-  2-es számrendszer: {Number(szam)
-    .toString(2)} 
+  2-es számrendszer:<br>
+  <div class="out">{BigInt(szam)
+    .toString(2)}</div> 
   <br>
-  16-os számrendszer: {Number(szam)
-    .toString(16)
-    .toLocaleUpperCase()}
+  16-os számrendszer:<br>
+  <div class="out">
+    {BigInt(szam)
+      .toString(16)
+      .toLocaleUpperCase()}
+  </div>
 </main>
 
 <style>
   input {
     text-align: right;
     font-size: 20px;
+  }
+  .out {
+    color: yellow;
+    font-size: 20px;
+    overflow-wrap: break-word;
+    max-width: 500px;
   }
 </style>
