@@ -26,7 +26,6 @@
 </script>
 
 <main>
-  {time.toLocaleTimeString().split(":")[2]}
   <button on:click={() => oratipus = oratipus == "analog" ? "digital" : "analog"}>
     {oratipus}
   </button>
@@ -52,7 +51,6 @@
     {/each}
   </table>
   {:else}
-  {or}
   <svg width="500" height="500">
    <line x1=250 y1=250 x2={
     250 + 220 * Math.cos(mp * Math.PI / 30- Math.PI/2)
