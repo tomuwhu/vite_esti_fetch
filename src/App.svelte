@@ -1,7 +1,6 @@
 <script>
   var time = new Date()
   var szam = ""
-  var zo = false
   setInterval(() => 
     time = new Date(),
     1000
@@ -9,10 +8,6 @@
   const f = v => {
     if (v == "P") {
       szam = -szam
-    }
-    else if (v == "(") {
-      zo = !zo
-      szam += zo ? "(" : ")"
     }
     else if (v == "C") {
       szam = ""
@@ -36,12 +31,11 @@
     <tr>
       <th colspan=4><input type="text" bind:value={szam}></th>
     </tr>
-    {#each ["CP%/","789*","456-","123+","(0,="] as o}
+    {#each ["CP%/","789*","456-","123+","0.=","()"] as o}
       <tr>
         {#each o as v}
           <td on:click={() => f(v)}>
             {#if v == "P"}±
-            {:else if v == "(" && zo})
             {:else}{v}
             {/if}
           </td>
@@ -56,14 +50,11 @@
     text-align: right;
     font-size: 20px;
   }
-  .out {
-    color: yellow;
-    font-size: 20px;
-    overflow-wrap: break-word;
-    max-width: 500px;
-  }
   table {
     border-spacing: 10px;
+  }
+  h1 {
+    font-size: 20px;
   }
   :global(td) {
     width: 40px;
